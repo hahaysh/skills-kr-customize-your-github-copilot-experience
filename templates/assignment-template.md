@@ -1,33 +1,32 @@
-# 📘 Assignment: [Assignment Title]
+# 📘 과제: [과제 제목]
 
 ## 🎯 Objective
 
-[Brief description of what the student will build or accomplish in this assignment]
+[학생이 이 과제에서 구현하거나 달성할 내용을 간단히 설명합니다.]
 
 ## 📝 Tasks
 
-### 🛠️	[Task 1 Title]
+### 🛠️	[작업 1 제목]
 
-#### Description
-[Description what needs to be done by the student for this task]
+#### 설명
+[학생이 이 작업에서 해야 할 일을 설명합니다.]
 
-#### Requirements
-Completed program should:
+#### 요구 사항
+완성된 프로그램은 다음 조건을 충족해야 합니다.
 
-- [Requirement 1]
-- [Requirement 2]
-- [Requirement 3]
+- [요구 사항 1]
+- [요구 사항 2]
+- [요구 사항 3]
 
 
-### 🛠️	[Task 2 Title]
+### 🛠️	[작업 2 제목]
 
-#### Description
-[Description what needs to be done by the student for this task]
+#### 설명
+[학생이 이 작업에서 해야 할 일을 설명합니다.]
 
-#### Requirements
-Completed program should:
+#### 요구 사항
+완성된 프로그램은 다음 조건을 충족해야 합니다.
 
-- [Requirement 1]
-- [Requirement 2]
-- [Requirement 3]
-
+- [요구 사항 1]
+- [요구 사항 2]
+- [요구 사항 3]

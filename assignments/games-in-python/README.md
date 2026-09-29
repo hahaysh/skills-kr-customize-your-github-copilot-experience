@@ -1,19 +1,20 @@
 
-# 🎮 Hangman Game Challenge
+# 🎮 행맨 게임 도전 과제
 
-Build the classic word-guessing game using Python strings, loops, and user input.
+Python 문자열, 반복문, 사용자 입력을 사용하여 고전적인 단어 맞히기 게임을 만들어 보세요.
 
-## � What You'll Build
+## 만들 내용
 
-Create a Hangman game where players guess letters to reveal a hidden word before running out of attempts.
+플레이어가 정해진 시도 횟수를 모두 사용하기 전에 글자를 추측하여 숨겨진 단어를 맞히는 행맨 게임을 만드세요.
 
-**Skills practiced:** String manipulation, loops, conditionals, random selection
+**연습할 기술:** 문자열 조작, 반복문, 조건문, 무작위 선택
 
-## ✅ Must Have's
+## ✅ 필수 요구 사항
 
-Your game must:
-- Randomly select words from a predefined list
-- Accept letter guesses and show current progress (_ _ _ format)
-- Track incorrect guesses remaining
-- End when word is guessed or attempts exhausted
-- Display win/lose messages
+게임은 다음 조건을 충족해야 합니다.
+
+- 미리 정의된 목록에서 단어를 무작위로 선택합니다.
+- 글자를 입력받고 현재 진행 상황을 `_ _ _` 형식으로 표시합니다.
+- 남은 오답 횟수를 추적합니다.
+- 단어를 맞히거나 시도 횟수를 모두 사용하면 게임을 종료합니다.
+- 승리 또는 패배 메시지를 표시합니다.

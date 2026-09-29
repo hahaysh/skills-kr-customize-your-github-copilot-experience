@@ -1,54 +1,53 @@
 
-# 📘 Assignment: Python Basics
+# 📘 과제: Python 기초
 
 ## 🎯 Objective
 
-Practice fundamental Python programming skills including user input, string formatting, arithmetic operations, and conditional statements by implementing simple functions.
+간단한 함수를 구현하면서 사용자 입력, 문자열 서식 지정, 산술 연산, 조건문 등 Python 프로그래밍의 기초를 연습합니다.
 
 ## 📝 Tasks
 
-### 🛠️ User Input and String Formatting
+### 🛠️ 사용자 입력과 문자열 서식 지정
 
-#### Description
-Write a function called `welcome_message()` that interacts with the user and returns a formatted welcome message.
+#### 설명
+사용자와 상호 작용하고 서식이 지정된 환영 메시지를 반환하는 `welcome_message()` 함수를 작성하세요.
 
-#### Requirements
-Completed program should:
+#### 요구 사항
+완성된 프로그램은 다음 조건을 충족해야 합니다.
 
-- Ask the user for their name, age, and favorite color using `input()`.
-- Return a welcome message formatted as:
-  `Hello, [name]! You are [age] years old and your favorite color is [color].`
-- Example output:
-  `Hello, Alice! You are 25 years old and your favorite color is blue.`
+- `input()`을 사용하여 사용자의 이름, 나이, 좋아하는 색상을 입력받습니다.
+- 다음 형식의 환영 메시지를 반환합니다.
+  `[name]님, 안녕하세요! 나이는 [age]세이고 좋아하는 색상은 [color]입니다.`
+- 출력 예시:
+  `Alice님, 안녕하세요! 나이는 25세이고 좋아하는 색상은 파란색입니다.`
 
-### 🛠️ Basic Arithmetic
+### 🛠️ 기본 산술 연산
 
-#### Description
-Write a function called `add_two_numbers()` that prompts the user for two numbers and prints their sum.
+#### 설명
+사용자에게 두 숫자를 입력받고 합계를 출력하는 `add_two_numbers()` 함수를 작성하세요.
 
-#### Requirements
-Completed program should:
+#### 요구 사항
+완성된 프로그램은 다음 조건을 충족해야 합니다.
 
-- Ask the user to enter two numbers.
-- Add the numbers together.
-- Print the result. Example:
-  Enter the first number: 3
-  Enter the second number: 7
+- 사용자에게 두 숫자를 입력하도록 요청합니다.
+- 입력받은 숫자를 더합니다.
+- 결과를 출력합니다. 예시:
+  첫 번째 숫자를 입력하세요: 3
+  두 번째 숫자를 입력하세요: 7
   10
 
-### 🛠️ Conditional Statements
+### 🛠️ 조건문
 
-#### Description
-Write a function called `is_even()` that checks if a number is even.
+#### 설명
+숫자가 짝수인지 확인하는 `is_even()` 함수를 작성하세요.
 
-#### Requirements
-Completed program should:
+#### 요구 사항
+완성된 프로그램은 다음 조건을 충족해야 합니다.
 
-- Take a single integer argument.
-- Return `True` if the number is even, and `False` if it is odd.
-- Example usage:
+- 정수 인수 하나를 받습니다.
+- 숫자가 짝수이면 `True`, 홀수이면 `False`를 반환합니다.
+- 사용 예시:
   ```python
   print(is_even(4))  # True
   print(is_even(5))  # False
   ```
-
