@@ -1,33 +1,33 @@
-# 📘 과제: Python 클래스
+# 📘 Assignment: Python Classes
 
 ## 🎯 Objective
 
-실제 객체와 동작을 모델링하면서 Python 클래스를 정의하고 사용하는 방법을 배웁니다.
+Learn how to define and use classes in Python to model real-world objects and behaviors.
 
 ## 📝 Tasks
 
-### 🛠️ 간단한 클래스 정의하기
+### 🛠️ Define a Simple Class
 
-#### 설명
-제조사, 모델, 연식 속성을 가진 자동차를 나타내는 `Car` 클래스를 만드세요. 자동차 정보를 표시하는 메서드도 추가하세요.
+#### Description
+Create a class named `Car` that represents a car with attributes for make, model, and year. Add a method to display information about the car.
 
-#### 요구 사항
-완성된 프로그램은 다음 조건을 충족해야 합니다.
+#### Requirements
+Completed program should:
 
-- `make`, `model`, `year` 속성을 가진 `Car` 클래스를 정의합니다.
-- 자동차의 상세 정보를 출력하는 `display_info()` 메서드를 포함합니다.
-- `Car` 인스턴스를 만들고 `display_info()`를 호출합니다.
+- Define a class `Car` with `make`, `model`, and `year` attributes
+- Include a method `display_info()` that prints the car's details
+- Create an instance of `Car` and call `display_info()`
 
 
-### 🛠️ 메서드와 상호 작용 추가하기
+### 🛠️ Add Methods and Interactions
 
-#### 설명
-자동차의 주행 거리를 업데이트하는 메서드와 현재 주행 거리를 표시하는 메서드를 `Car` 클래스에 추가하세요.
+#### Description
+Expand the `Car` class to include a method to update the car's mileage and another to display the current mileage.
 
-#### 요구 사항
-완성된 프로그램은 다음 조건을 충족해야 합니다.
+#### Requirements
+Completed program should:
 
-- `Car` 클래스에 기본값이 0인 `mileage` 속성을 추가합니다.
-- 주행 거리를 업데이트하는 `update_mileage(new_mileage)` 메서드를 추가합니다.
-- 현재 주행 거리를 출력하는 `display_mileage()` 메서드를 추가합니다.
-- `Car` 인스턴스의 주행 거리를 업데이트하고 표시하는 과정을 구현합니다.
+- Add a `mileage` attribute to the `Car` class (default 0)
+- Add a method `update_mileage(new_mileage)` to update the mileage
+- Add a method `display_mileage()` to print the current mileage
+- Demonstrate updating and displaying mileage for a `Car` instance

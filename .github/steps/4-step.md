@@ -1,98 +1,98 @@
-## 4단계: 사용자 지정 에이전트 만들기
+## Step 4: Creating Custom Agents
 
-이제 지침, 스킬, 템플릿이 함께 작동합니다. 여기에서 사용자 지정 기능을 한 단계 더 발전시켜 보겠습니다. 새 과제의 아이디어를 구상할 때는 아이디어에만 집중하는 전용 채팅 환경을 사용하고, 실제 과제 생성은 3단계에서 만든 스킬을 사용하는 에이전트 모드(Agent Mode)에 넘기려고 합니다.
+Now that you have instructions, skills, and templates working together, you want to take customization one step further. When brainstorming new assignments, you'd like a specialized chat experience that focuses purely on ideation — and then hands off to Agent Mode to actually implement the assignment creation using the skill you built in Step 3.
 
-### 📖 이론: 사용자 지정 에이전트
+### 📖 Theory: Custom Agents
 
-사용자 지정 에이전트(`*.agent.md`)는 Copilot의 동작 방식을 바꾸어 특정 도구, 응답 형식, 고유한 특성까지 갖춘 전문 대화 환경을 만듭니다. Copilot Chat 인터페이스의 드롭다운 목록에서 사용할 에이전트를 선택할 수 있습니다.
+Custom agents (`*.agent.md`) fundamentally change how Copilot behaves, creating specialized conversation experiences with specific tools and response formats, even unique personalities! They are selected from a dropdown list in the Copilot Chat interface.
 
-Visual Studio Code는 `.github/agents/` 디렉터리에서 `*.agent.md` 파일을 찾습니다.
+Visual Studio Code will look for `*.agent.md` files in `.github/agents/` directory.
 
 > [!TIP]
-> 사용자 지정 에이전트에 관한 자세한 내용은 다음 문서를 참고하세요.
+> Learn more about Custom Agents:
 >
-> - [VS Code Docs: 사용자 지정 에이전트](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
-> - [GitHub Docs: 사용자 지정 에이전트 구성](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
+> - [VS Code Docs: Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
+> - [GitHub Docs: Custom Agents Configuration](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
 
-### ⌨️ 활동: 과제 아이디어 구상용 사용자 지정 에이전트 만들기
+### ⌨️ Activity: Create an Assignment Brainstorming Custom Agent
 
-과제 아이디어 구상을 돕고, 3단계에서 만든 스킬을 사용해 실제 과제를 생성하도록 에이전트 모드에 작업을 넘기는 사용자 지정 에이전트를 만들어 보겠습니다.
+Now let's create a specialized custom agent that helps brainstorm assignment ideas, then hands off to Agent Mode to actually implement the assignment creation using the skill you built in Step 3.
 
-1. 다음 파일을 만듭니다.
+1. Create a new file called:
 
    ```text
    .github/agents/assignment-brainstorming.agent.md
    ```
 
-1. 아이디어 구상에 집중하는 환경을 만들기 위해 다음 내용을 추가합니다.
+1. Add the following content to create a focused brainstorming experience:
 
    ```markdown
    ---
-   name: 과제 아이디어 구상
-   description: Mergington High School 학생들을 위한 다음 프로그래밍 과제 아이디어 구상
+   name: Assignment Brainstorming
+   description: Brainstorm the next programming assignment for Mergington High School students
    tools: ["search", "vscode/askQuestions"]
    handoffs:
-     - label: "이 과제 만들기"
+     - label: "Create this assignment"
        agent: agent
-       prompt: "위 아이디어 구상 세션의 추천을 바탕으로 새 과제를 만들어 줘."
+       prompt: "Create a new assignment based on the recommendation from the brainstorming session above."
        send: true
    ---
 
-   # 과제 아이디어 구상 도우미
+   # Assignment Brainstorming Assistant
 
-   기존 교육 과정을 분석하고 한 가지 구체적인 아이디어를 제안하여 교사가 다음 과제를 결정하도록 돕습니다.
+   Help the teacher decide on the next assignment by analyzing existing curriculum and suggesting one focused idea.
 
-   ## 워크플로
+   ## Workflow
 
-   1. `assignments/` 디렉터리와 `config.json`을 살펴보고 이미 다룬 주제를 파악합니다.
-   2. `askQuestions` 도구를 사용하여 난이도, 주제 영역, 제약 사항에 관한 교사의 선호도를 확인합니다.
-   3. 제목, 핵심 개념, 교육 과정의 빈틈을 채우는 이유를 한 문장으로 정리하여 과제 **한 개**를 추천합니다.
-   4. **이 과제 만들기** 버튼을 사용하여 과제를 생성하도록 안내합니다.
+   1. Scan the `assignments/` directory and `config.json` to understand what topics are already covered.
+   2. Use the `askQuestions` tool to gather the teacher's preferences — difficulty level, topic area, and any constraints.
+   3. Recommend **one** assignment: a title, the core concept, and a sentence on why it fills a curriculum gap.
+   4. Suggest using the **Create this assignment** button to build it.
 
-   ## 규칙
+   ## Rules
 
-   - 각 섹션의 응답을 몇 문장 이내로 짧게 작성합니다.
-   - 전체 과제 명세를 작성하지 않습니다. 그 작업은 스킬이 담당합니다.
-   - 기존 교육 과정에서 부족한 부분을 바탕으로 추천합니다.
-   - 항상 명확한 다음 단계로 마무리합니다.
+   - Keep responses short — no more than a few sentences per section.
+   - Never write full assignment specs. That's the skill's job.
+   - Base recommendations on gaps in the existing curriculum.
+   - Always end with a clear next step.
    ```
 
-   주요 부분을 살펴보겠습니다.
-   - **`tools: ["search", "vscode/askQuestions"]`** — 에이전트가 코드베이스를 검색하고, 자유 형식으로 질문을 주고받는 대신 선택 가능한 옵션이 포함된 구조화된 질문을 제시할 수 있게 합니다.
-   - **`handoffs`** — **이 과제 만들기** 버튼을 정의합니다. 버튼을 클릭하면 일반 Copilot 에이전트 모드로 전환되고, 구상한 추천을 참조하는 프롬프트가 자동으로 전송됩니다. 그러면 3단계의 `new-assignment` 스킬이 활성화되어 구상한 아이디어를 바탕으로 실제 과제를 생성합니다.
-   - **본문 지침** — 에이전트의 특성과 워크플로를 정의합니다. 이 에이전트는 _아이디어 구상에만_ 집중하고 구현은 명시적으로 스킬에 맡깁니다.
+   Let's break down the key parts:
+   - **`tools: ["search", "vscode/askQuestions"]`** — gives the agent the ability to search the codebase and present structured questions with selectable options, rather than relying on free-text back-and-forth.
+   - **`handoffs`** — defines a "Create this assignment" button. When clicked, it switches to the regular Copilot Agent mode and automatically sends a prompt referencing the brainstormed recommendation. This should trigger the `new-assignment` skill from Step 3 so that the assignment is actually created based on the brainstormed idea.
+   - **The body instructions** — define the agent's personality and workflow. Notice it's focused on _ideation only_ and explicitly defers implementation to the skill.
 
-### ⌨️ 활동: 아이디어 구상용 사용자 지정 에이전트 테스트하기
+### ⌨️ Activity: Test the Brainstorming Custom Agent
 
-1. VS Code에서 Copilot Chat을 엽니다.
+1. Open Copilot Chat in VS Code.
 
-1. 에이전트 드롭다운 목록에서 사용자 지정 에이전트를 선택합니다.
+1. Select your custom agent from the agent dropdown list.
 
-   <img width="379" height="218" alt="과제 아이디어 구상 에이전트를 선택한 Copilot 화면" src="../images/custom-agent-dropdown-selection.png" />
+   <img width="379" height="218" alt="copilot agent: assignment brainstorming agent selected" src="../images/custom-agent-dropdown-selection.png" />
 
-1. 아이디어 구상 세션을 시작합니다.
+1. Start a brainstorming session:
 
    > ![Static Badge](https://img.shields.io/badge/-Prompt-text?style=social&logo=github%20copilot)
    >
    > ```prompt
-   > 다음에는 무엇을 가르치면 좋을까?
+   > What should I teach next?
    > ```
 
-1. 에이전트가 기존 과제를 살펴본 다음 난이도와 선호 주제에 관한 구조화된 질문을 합니다. 질문에 답하여 추천 범위를 좁힙니다.
+1. The agent will scan your existing assignments, then ask you structured questions about difficulty and topic preferences. Answer the questions to narrow down the recommendation.
 
-1. 에이전트가 과제를 추천하면 **이 과제 만들기** 버튼을 클릭하여 구현 작업을 에이전트 모드에 넘깁니다.
+1. Once the agent recommends an assignment, click the **Create this assignment** button to hand off to Agent Mode for implementation.
 
-   <img width="380" alt="이 과제 만들기 핸드오프 버튼" src="../images/handoff-button.png" />
+   <img width="380" alt="Create this assignment handoff button" src="../images/handoff-button.png" />
 
-1. 변경 사항을 `main` 브랜치에 커밋하고 푸시합니다.
+1. Commit and push your changes to the `main` branch.
 
-1. Mona가 최종 리뷰를 제공할 때까지 기다립니다!
+1. Wait for Mona to give you a final review!
 
 <details>
-<summary>문제가 있나요? 🤷</summary><br/>
+<summary>Having trouble? 🤷</summary><br/>
 
-- 사용자 지정 에이전트 파일이 `.github/agents/` 디렉터리에 있고 `.agent.md` 확장자를 사용하는지 확인하세요.
-- 사용자 지정 에이전트는 `@` 멘션이 아니라 채팅 인터페이스 아래쪽의 드롭다운 목록에서 선택합니다.
-- 사용자 지정 에이전트가 드롭다운에 표시되지 않으면 VS Code를 다시 시작하거나 창을 다시 로드하세요.
+- Make sure the custom agent file is in `.github/agents/` directory with the `.agent.md` extension.
+- Custom agents are selected from the dropdown list at the bottom of the chat interface, not with `@` mentions.
+- If the custom agent doesn't appear in the dropdown, restart VS Code or reload the window.
 
 </details>

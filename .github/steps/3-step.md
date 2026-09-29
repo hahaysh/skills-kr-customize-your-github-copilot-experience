@@ -1,46 +1,46 @@
-## 3단계: 재사용 가능한 스킬 만들기
+## Step 3: Building Reusable Skills
 
-과제에 대한 지침을 마련했으니, 이제 새 과제를 만드는 과정을 간소화해 보겠습니다.
+Now that you've established instructions for assignments, you want to streamline creating new assignments.
 
-과제 만들기는 여러 단계를 반복해서 수행해야 하므로, 재사용 가능한 스킬을 활용하기에 완벽한 작업입니다!
+Creating assignments is a repetitive task and involves multiple steps, a perfect scenario for a reusable skill!
 
-- 과제 콘텐츠 만들기
-- 웹사이트 구성에 과제 등록하기
-- 시작 코드 또는 데이터 파일 첨부하기
+- Creating the assignment content
+- Registering it in the website configuration
+- Attaching starter code or data files
 
-### 📖 이론: 에이전트 스킬(Agent Skills)
+### 📖 Theory: Agent Skills
 
-에이전트 스킬은 AI 에이전트에 전문 기능과 워크플로를 제공하기 위한 [개방형 표준](https://agentskills.io/)입니다. 스킬은 메타데이터와 지침이 담긴 `SKILL.md` 파일을 포함하는 폴더이며, 선택적으로 스크립트, 참조 자료 및 기타 리소스를 포함할 수 있습니다.
+Agent Skills are an [open standard](https://agentskills.io/) for giving AI agents specialized capabilities and workflows. A skill is a folder containing a `SKILL.md` file with metadata and instructions, plus optional scripts, references, and other resources.
 
 ```text
 skill-name/
-├── SKILL.md          # 필수: 메타데이터 + 지침
-├── scripts/          # 선택 사항: 실행 가능한 코드
-├── references/       # 선택 사항: 문서
+├── SKILL.md          # Required: metadata + instructions
+├── scripts/          # Optional: executable code
+├── references/       # Optional: documentation
 ```
 
-에이전트는 **점진적 공개(progressive disclosure)** 방식으로 스킬을 자동 탐색합니다.
+Agents discover skills automatically through **progressive disclosure**:
 
-1. **탐색**: 시작할 때 에이전트는 스킬의 `name`과 `description`만 불러옵니다.
-1. **활성화**: 작업이 스킬의 설명과 일치하면 에이전트가 `SKILL.md`의 전체 지침을 읽습니다.
-1. **리소스**: 추가 파일(참조 자료, 스크립트)은 필요할 때만 불러옵니다.
+1. **Discovery**: At startup, agents load only the skill's `name` and `description`.
+1. **Activation**: When a task matches a skill's description, the agent reads the full `SKILL.md` instructions.
+1. **Resources**: Additional files (references, scripts) are loaded only when needed.
 
-즉, 많은 스킬을 설치해도 속도가 느려지지 않습니다. 관련 있는 내용만 컨텍스트에 불러오기 때문입니다.
+This means you can have many skills installed without slowing things down — only what's relevant gets loaded into context.
 
-스킬은 두 가지 방식으로 활성화됩니다. Copilot이 요청을 스킬의 설명과 일치시키면 **자동으로** 활성화되며, 슬래시 명령(`/skill-name`)을 사용하면 **명시적으로** 활성화할 수 있습니다. 에이전트는 어떤 스킬을 활성화할지 결정할 때 `name`과 `description`을 기준으로 삼으므로 명확하고 구체적인 설명을 작성하는 것이 중요합니다.
+Skills get activated in two ways: **automatically** when Copilot matches your request to a skill's description, or **explicitly** via a slash command (`/skill-name`). Because agents rely on the `name` and `description` to decide which skills to activate, writing a clear, specific description is important.
 
-Visual Studio Code는 기본적으로 `.github/skills/` 디렉터리에서 스킬을 탐색합니다.
+Visual Studio Code discovers skills from the `.github/skills/` directory by default.
 
 > [!TIP]
-> 에이전트가 스킬을 **언제** 사용해야 하는지 알 수 있도록 frontmatter의 `description`을 명확하게 작성하세요. 템플릿, 예제 및 자세한 문서는 추가 파일로 참조하세요.
+> Write a clear `description` in the frontmatter so the agent knows **when** to use the skill. Reference additional files for templates, examples, and detailed documentation.
 
-자세한 내용은 [VS Code 문서: 에이전트 스킬](https://code.visualstudio.com/docs/copilot/customization/agent-skills)을 참조하세요.
+See the [VS Code Docs: Agent Skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) for more information.
 
-### ⌨️ 실습: 스킬 기본 구조 만들기
+### ⌨️ Activity: Create the Skill Skeleton
 
-먼저 전체 스킬 디렉터리 구조와 기본 `SKILL.md` 파일을 만들어 보겠습니다. 이후 실습에서 파일을 추가할 수 있도록 `references/`와 `scripts/`를 포함한 모든 디렉터리를 미리 만듭니다.
+Let's start by creating the full skill directory structure and its main `SKILL.md` file. We'll create all the directories upfront — including `references/` and `scripts/` — so everything is in place as we add files in the following activities.
 
-1. 모든 하위 디렉터리를 포함하는 스킬 디렉터리 구조를 만듭니다.
+1. Create the skill directory structure with all subdirectories:
 
    ```text
    .github/skills/new-assignment/
@@ -48,109 +48,109 @@ Visual Studio Code는 기본적으로 `.github/skills/` 디렉터리에서 스�
    .github/skills/new-assignment/scripts/
    ```
 
-1. 기본 스킬 파일을 만듭니다.
+1. Create the main skill file:
 
    ```text
    .github/skills/new-assignment/SKILL.md
    ```
 
-1. 다음 내용을 추가합니다. frontmatter의 `name`과 `description`은 에이전트가 탐색 단계에서 스킬을 활성화할지 판단할 때 확인하는 정보입니다. 본문에는 스킬이 활성화된 후 에이전트가 따를 워크플로가 담겨 있습니다.
+1. Add the following content. The frontmatter `name` and `description` are what the agent sees at discovery time to decide whether to activate the skill. The body provides the workflow the agent follows once activated.
 
    ```markdown
    ---
    name: new-assignment
-   description: Mergington High School 학생을 위한 새 프로그래밍 과제를 만듭니다. 사용자가 "assignment"라는 단어를 명시적으로 사용하지 않더라도 새 과제, 연습 문제 또는 숙제를 만들거나 추가하거나 기본 구조를 구성하거나 생성하려는 경우 이 스킬을 사용하세요.
+   description: Create a new programming homework assignment for Mergington High School students. Use this skill whenever the user wants to create, add, scaffold, or generate a new assignment, exercise, or homework — even if they don't use the word "assignment" explicitly.
    ---
 
-   # 새 프로그래밍 과제 만들기
+   # Create New Programming Assignment
 
-   과제는 `assignments/<id>/`에 있으며, 웹사이트는 `config.json`을 읽어 과제를 표시합니다. 다음 단계에 따라 두 항목을 모두 만드세요.
+   Assignments live in `assignments/<id>/`, and the website reads `config.json` to display them. Follow these steps to create both.
 
-   ## 1단계: 요구 사항 수집
+   ## Step 1: Gather Requirements
 
-   사용자가 지정하지 않았다면 과제에서 다룰 프로그래밍 개념을 물어보세요.
+   If the user hasn't specified, ask what programming concept the assignment should cover.
 
-   > 📖 난이도, 범위 및 시작 코드를 포함할 시점에 관한 지침은 [references/assignment-guide.md](references/assignment-guide.md)를 참조하세요.
+   > 📖 Read [references/assignment-guide.md](references/assignment-guide.md) for guidance on difficulty, scope, and when to include starter code.
 
-   ## 2단계: 과제 만들기
+   ## Step 2: Create the Assignment
 
-   1. [과제 템플릿](../../../templates/assignment-template.md)에 따라 `assignments/<kebab-case-id>/README.md`를 만듭니다.
-   2. (선택 사항) 같은 디렉터리에 시작 코드 또는 데이터 파일을 추가합니다.
+   1. Create `assignments/<kebab-case-id>/README.md` following the [assignment template](../../../templates/assignment-template.md)
+   2. (Optional) Add starter code or data files to the same directory
 
-   ## 3단계: 웹사이트에 등록
+   ## Step 3: Register with the Website
 
-   포함된 스크립트를 사용하세요. `config.json`을 수동으로 편집하지 마세요.
+   Use the bundled scripts — do NOT edit `config.json` manually.
 
-   **과제 등록:**
+   **Register the assignment:**
 
        node .github/skills/new-assignment/scripts/update-config.js <id> "<title>" "<description>"
 
-   **각 파일을 첨부 파일로 등록**(시작 코드, 데이터 파일 등):
+   **Register each file as an attachment** (starter code, data files, etc.):
 
        node .github/skills/new-assignment/scripts/add-attachment.js <id> "<display-name>" <filename> <type>
 
-   일반적인 형식: `python`, `csv`, `json`, `txt`, `html`
+   Common types: `python`, `csv`, `json`, `txt`, `html`
 
-   ## 4단계: 확인
+   ## Step 4: Verify
 
-   과제가 올바르게 등록되었는지 확인하세요. `config.json`에 새 항목이 포함되어 있고 생성한 모든 파일이 디스크에 존재하는지 검사합니다.
+   Confirm the assignment was registered correctly: check that `config.json` contains the new entry and that all created files exist on disk.
    ```
 
-   `SKILL.md`가 아직 만들지 않은 두 디렉터리인 `references/`와 `scripts/`를 참조하고 있다는 점에 주목하세요. 이것이 점진적 공개 패턴의 실제 모습입니다. 에이전트는 해당 파일이 필요한 단계에 도달했을 때만 파일을 불러옵니다.
+   Notice how the `SKILL.md` references two other directories — `references/` and `scripts/` — that we haven't created yet. This is the progressive disclosure pattern in action: the agent only loads these files when it reaches a step that needs them.
 
-### ⌨️ 실습: 참조 가이드 추가하기
+### ⌨️ Activity: Add a Reference Guide
 
-에이전트가 필요할 때 참고할 수 있는 도메인 지식으로 `references/` 디렉터리를 채워 보겠습니다. `SKILL.md`는 `references/assignment-guide.md`를 가리키므로 에이전트가 난이도와 범위를 결정할 때 이 파일을 읽을 수 있지만, 실제로 해당 컨텍스트가 필요할 때만 읽습니다.
+Let's populate the `references/` directory with domain knowledge the agent can consult as needed. The `SKILL.md` points to `references/assignment-guide.md` so the agent can read it when deciding difficulty and scope — but only when it actually needs that context.
 
-1. 참조 파일을 만듭니다.
+1. Create the reference file:
 
    ```text
    .github/skills/new-assignment/references/assignment-guide.md
    ```
 
-1. 에이전트에 교육학적 지침을 제공하도록 다음 내용을 추가합니다.
+1. Add the following content to give the agent pedagogical guidance:
 
    ```markdown
-   # 과제 설계 가이드
+   # Assignment Design Guide
 
-   과제 콘텐츠 설계에 관한 지침으로, 무엇을 가르치고 범위를 어떻게 정할지 설명합니다. 형식과 Markdown 구조는 프로젝트의 지침 파일이 자동으로 처리합니다.
+   Guidance for designing assignment content — what to teach and how to scope it. For formatting and markdown structure, the project's instruction files handle that automatically.
 
-   ## 난이도 및 범위
+   ## Difficulty & Scope
 
-   - 서로 연계되는 작업을 2~4개 포함하도록 구성합니다.
-   - 학생이 10분 이내에 완료할 수 있는 내용으로 시작한 다음 복잡도를 높입니다.
-   - 마지막 작업은 도전 목표로 구성할 수 있지만, 앞선 작업은 자신감을 키울 수 있어야 합니다.
-   - 과제 하나당 핵심 개념 하나만 다룹니다(예: "반복문 + 파일 I/O + 오류 처리"가 아닌 "반복문").
+   - Target 2–4 tasks per assignment that build on each other
+   - Start with something a student can finish in under 10 minutes, then add complexity
+   - The last task can be a stretch goal, but earlier tasks should build confidence
+   - Stick to one core concept per assignment (e.g., "loops", not "loops + file I/O + error handling")
 
-   ## 시작 코드
+   ## Starter Code
 
-   다음과 같은 경우 시작 코드를 포함합니다.
+   Include starter code when:
 
-   - 학생이 처음부터 작성할 필요가 없는 상용구 코드가 과제에 필요한 경우
-   - 학생들이 특정 함수 시그니처 또는 구조를 따르도록 하려는 경우
+   - The assignment needs boilerplate the student shouldn't write from scratch
+   - You want students to follow a specific function signature or structure
 
-   처음부터 직접 작성하는 것이 핵심인 경우(예: "…하는 스크립트를 작성하세요")에는 포함하지 않습니다.
+   Skip it when the point is writing something from scratch (e.g., "write a script that…").
 
-   ## 난이도별 주제 예시
+   ## Example Topics by Difficulty
 
-   - **초급**: 변수, 조건문, 반복문, 문자열 형식 지정
-   - **중급**: 함수, 리스트/딕셔너리, 파일 I/O, 기본 클래스
-   - **고급**: API, 데이터 분석, 테스트, 웹 프레임워크
+   - **Beginner**: variables, conditionals, loops, string formatting
+   - **Intermediate**: functions, lists/dicts, file I/O, basic classes
+   - **Advanced**: APIs, data analysis, testing, web frameworks
    ```
 
-   이 내용을 `SKILL.md`와 분리하면 기본 지침은 _워크플로_에 집중하고 이 파일은 _도메인 지식_을 제공할 수 있습니다. 에이전트는 요구 사항 수집 단계에 도달했을 때만 이 파일을 읽습니다.
+   By separating this from `SKILL.md`, we keep the main instructions focused on _workflow_ while this file provides _domain knowledge_. The agent only reads it when it reaches the gather-requirements step.
 
-### ⌨️ 실습: 포함된 스크립트 추가하기
+### ⌨️ Activity: Add Bundled Scripts
 
-코드가 AI보다 더 안정적으로 처리할 수 있는 결정론적 작업을 위해 스킬에 스크립트를 포함할 수 있습니다. 이 스킬에는 두 개의 스크립트가 필요합니다. 하나는 `config.json`에 과제를 등록하고, 다른 하나는 파일(시작 코드, 데이터 세트 등)을 과제에 첨부합니다. 에이전트가 이러한 스크립트를 실행하게 하면 매번 일관되고 오류 없이 구성을 업데이트할 수 있습니다.
+Skills can bundle scripts for deterministic tasks that are better handled by code than by the AI. Our skill needs two scripts: one to register the assignment in `config.json` and one to attach files (starter code, datasets, etc.) to it. Having the agent run these scripts ensures consistent, error-free config updates every time.
 
-1. 새 과제를 등록하는 첫 번째 스크립트를 만듭니다.
+1. Create the first script that registers a new assignment:
 
    ```text
    .github/skills/new-assignment/scripts/update-config.js
    ```
 
-   다음 내용을 추가합니다.
+   Add the following content:
 
    ```javascript
    const fs = require("fs");
@@ -181,15 +181,15 @@ Visual Studio Code는 기본적으로 `.github/skills/` 디렉터리에서 스�
    console.log(`Added "${title}" (due ${dueDate})`);
    ```
 
-   이 스크립트는 마감일 계산과 정확한 JSON 구조를 처리합니다. AI가 매번 정확하게 처리하기에는 번거롭고 오류가 발생하기 쉬운 작업입니다.
+   This script handles the math for the due date and the exact JSON structure — things that are tedious and error-prone for an AI to get right every time.
 
-1. 기존 과제에 파일을 첨부하는 두 번째 스크립트를 만듭니다.
+1. Create a second script that attaches files to an existing assignment:
 
    ```text
    .github/skills/new-assignment/scripts/add-attachment.js
    ```
 
-   다음 내용을 추가합니다.
+   Add the following content:
 
    ```javascript
    const fs = require("fs");
@@ -211,7 +211,7 @@ Visual Studio Code는 기본적으로 `.github/skills/` 디렉터리에서 스�
    const configPath = path.join(repoRoot, "config.json");
    const filePath = path.join(repoRoot, "assignments", assignmentId, filename);
 
-   // 파일이 디스크에 존재하는지 확인
+   // Verify the file exists on disk
    if (!fs.existsSync(filePath)) {
      console.error(`Error: File not found: assignments/${assignmentId}/${filename}`);
      process.exit(1);
@@ -226,12 +226,12 @@ Visual Studio Code는 기본적으로 `.github/skills/` 디렉터리에서 스�
      process.exit(1);
    }
 
-   // attachments 배열이 없으면 생성
+   // Create attachments array if it doesn't exist
    if (!assignment.attachments) {
      assignment.attachments = [];
    }
 
-   // 파일 이름이 같은 첨부 파일이 이미 있으면 건너뜀
+   // Skip if an attachment with the same filename already exists
    const existing = assignment.attachments.find((a) => a.file === filename);
    if (existing) {
      console.log(`Skipped: "${filename}" is already attached to "${assignmentId}"`);
@@ -248,98 +248,98 @@ Visual Studio Code는 기본적으로 `.github/skills/` 디렉터리에서 스�
    console.log(`Added "${displayName}" (${filename}) to assignment "${assignmentId}"`);
    ```
 
-   두 번째 스크립트는 파일이 실제로 존재하는지 검증하고 중복 첨부를 방지하며 명확한 오류 메시지를 생성합니다. 이 모든 기능 덕분에 에이전트가 실행할 때 스킬이 더 안정적으로 작동합니다.
+   This second script validates that the file actually exists, prevents duplicate attachments, and produces clear error messages — all things that make the skill more robust when the agent executes it.
 
-1. 최종 스킬 구조를 검토합니다. 다음과 같은 모습이어야 합니다.
+1. Review the final skill structure. It should look like this:
 
    ```text
    .github/skills/new-assignment/
-   ├── SKILL.md                          # 에이전트가 따르는 워크플로
+   ├── SKILL.md                          # Workflow the agent follows
    ├── references/
-   │   └── assignment-guide.md           # 도메인 지식(필요할 때 불러옴)
+   │   └── assignment-guide.md           # Domain knowledge (loaded on demand)
    └── scripts/
-       ├── update-config.js              # 새 과제 등록
-       └── add-attachment.js             # 과제에 파일 첨부
+       ├── update-config.js              # Registers new assignments
+       └── add-attachment.js             # Attaches files to assignments
    ```
 
-   스킬의 각 부분에는 명확한 역할이 있습니다.
-   - **`SKILL.md`** — 에이전트의 플레이북: 따라야 할 단계와 다른 리소스를 불러올 시점
-   - **`references/`** — 에이전트가 더 나은 결정을 내리는 데 도움이 되는 배경지식
-   - **`scripts/`** — AI 생성 대신 코드로 처리하는 결정론적 작업
+   Each part of the skill has a clear role:
+   - **`SKILL.md`** — the agent's playbook: what steps to follow and when to load other resources
+   - **`references/`** — background knowledge that helps the agent make better decisions
+   - **`scripts/`** — deterministic operations handled by code instead of AI generation
 
-### ⌨️ 실습: 과제 스킬 테스트하기
+### ⌨️ Activity: Test the Assignment Skill
 
-1. VS Code에서 Copilot Chat을 열고 `Agent` 모드인지 확인합니다.
+1. Open Copilot Chat in VS Code and ensure you're in `Agent` mode.
 
-1. 자연어 프롬프트를 사용하여 Copilot에 새 과제를 만들어 달라고 요청합니다. 스킬에 명확한 `description`이 있으므로 Copilot이 요청을 자동으로 일치시켜 스킬을 활성화합니다.
+1. Ask Copilot to create a new assignment using a natural language prompt. Because the skill has a clear `description`, Copilot will automatically match your request and activate it.
 
    > ![Static Badge](https://img.shields.io/badge/-Prompt-text?style=social&logo=github%20copilot)
    >
    > ```prompt
-   > FastAPI 프레임워크로 REST API를 구축하는 방법에 대한 새 과제를 만들어 주세요
+   > Create a new assignment about Building REST APIs with FastAPI framework
    > ```
 
-   > 💡 **팁:** 채팅 입력란에서 `/new-assignment` 슬래시 명령을 사용하여 스킬을 명시적으로 호출할 수도 있습니다.
+   > 💡 **Tip:** You can also invoke the skill explicitly with the `/new-assignment` slash command in the chat input.
 
       <details>
-      <summary>💡 과제 주제 아이디어</summary>
+      <summary>💡 Assignment Topic Ideas</summary>
 
    ```text
-   Python 텍스트 처리 - 문자열, 파일 I/O 및 텍스트 조작
+   Python Text Processing - working with strings, file I/O, and text manipulation
    ```
 
    ```text
-   Python의 데이터 구조 - 리스트, 딕셔너리, 집합 및 튜플
+   Data Structures in Python - lists, dictionaries, sets, and tuples
    ```
 
    ```text
-   Python 데이터 시각화 - matplotlib 또는 plotly를 사용한 차트와 그래프
+   Python Data Visualization - using matplotlib or plotly for charts and graphs
    ```
 
    ```text
-   FastAPI 프레임워크로 REST API 구축하기
+   Building REST APIs with FastAPI framework
    ```
 
    ```text
-   Python을 활용한 통계 - pandas와 numpy를 사용한 데이터 분석 및 통계 계산
+   Statistics with Python - data analysis and statistical calculations using pandas and numpy
    ```
 
       </details>
 
-1. Copilot이 스킬을 읽고 과제를 만든 다음 포함된 스크립트를 실행합니다.
+1. Copilot will read the skill, create the assignment, and run the bundled scripts.
 
-   <img width="380" alt="Copilot이 new-assignment SKILL.md 파일을 읽는 모습" src="../images/skill-being-used.png" />
+   <img width="380" alt="Copilot reading the new-assignment SKILL.md file" src="../images/skill-being-used.png" />
 
-   계속 진행할 수 있도록 모든 확인 프롬프트를 수락합니다.
+   Accept any confirmation prompts to let it continue.
 
-   <img width="380" alt="Copilot이 node 스크립트 실행 확인을 요청하는 모습" src="../images/node-confirmation.png" />
+   <img width="380" alt="Copilot asking for confirmation to run node scripts" src="../images/node-confirmation.png" />
 
-1. 웹사이트 미리 보기의 과제 목록에 새 과제가 표시되는지 확인합니다.
+1. Verify the new assignment appears in the assignments list on the website preview.
 
    <details>
-   <summary>과제가 표시되지 않나요? 🔍</summary>
+   <summary>Assignment not showing? 🔍</summary>
 
-   다음 항목을 확인하세요.
-   - 페이지를 새로 고칩니다.
-   - `assignments/`에 새 디렉터리가 생성되었습니다.
-   - `config.json` 파일이 새 과제로 업데이트되었습니다.
+   Check these items:
+   - Refresh the page.
+   - A new directory was created in `assignments/`.
+   - The `config.json` file was updated with the new assignment.
 
    </details>
 
-1. 생성된 과제 콘텐츠가 앞서 정한 규칙과 일치하는지 검토합니다.
+1. Review the generated assignment content to ensure it matches your established conventions.
 
-1. 변경 사항을 커밋하고 푸시합니다.
-   - 새 스킬 디렉터리: `.github/skills/new-assignment/` (`SKILL.md`, `references/`, `scripts/` 포함)
-   - 생성된 과제 디렉터리와 파일
-   - 업데이트된 `config.json` 구성
+1. Commit and push your changes:
+   - The new skill directory: `.github/skills/new-assignment/` (including `SKILL.md`, `references/`, and `scripts/`)
+   - The generated assignment directory and files.
+   - Updated `config.json` configuration.
 
-1. Mona가 다음 단계를 준비할 때까지 기다리세요!
+1. Wait for Mona to prepare the next step!
 
 <details>
-<summary>문제가 있나요? 🤷</summary><br/>
+<summary>Having trouble? 🤷</summary><br/>
 
-- 스킬이 `SKILL.md` 파일과 함께 `.github/skills/new-assignment/` 디렉터리에 있는지 확인하세요.
-- `SKILL.md` frontmatter의 `name` 필드는 상위 디렉터리 이름(`new-assignment`)과 일치해야 합니다.
-- `/` 메뉴에 스킬이 표시되지 않으면 VS Code 창을 다시 불러오세요.
+- Make sure the skill is in the `.github/skills/new-assignment/` directory with a `SKILL.md` file.
+- The `name` field in `SKILL.md` frontmatter must match the parent directory name (`new-assignment`).
+- If the skill doesn't appear in the `/` menu, reload the VS Code window.
 
 </details>

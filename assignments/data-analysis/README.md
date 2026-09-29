@@ -1,32 +1,32 @@
-# 📘 과제: 데이터 분석
+# 📘 Assignment: Data Analysis
 
 ## 🎯 Objective
 
-Python을 사용한 데이터 분석의 기초를 배웁니다. 데이터 세트를 불러오고 탐색하고 분석하여 의미 있는 인사이트를 도출합니다.
+Students will learn the basics of data analysis using Python. They will load, explore, and analyze a dataset to extract meaningful insights.
 
 ## 📝 Tasks
 
-### 🛠️ 데이터 불러오기 및 탐색
+### 🛠️ Data Loading and Exploration
 
-#### 설명
-제공된 CSV 데이터 세트를 불러오고 기본적인 탐색을 수행하여 데이터의 구조와 내용을 파악하세요.
+#### Description
+Load a provided CSV dataset and perform basic exploration to understand its structure and contents.
 
-#### 요구 사항
-완성된 프로그램은 다음 조건을 충족해야 합니다.
+#### Requirements
+Completed program should:
 
-- Python을 사용하여 CSV 파일을 불러옵니다(예: pandas 사용).
-- 데이터 세트의 처음 5개 행을 표시합니다.
-- 숫자 열의 요약 통계(평균, 중앙값 등)를 표시합니다.
+- Load a CSV file using Python (e.g., with pandas)
+- Display the first 5 rows of the dataset
+- Show summary statistics (mean, median, etc.) for numeric columns
 
 
-### 🛠️ 데이터 시각화 및 인사이트 도출
+### 🛠️ Data Visualization and Insights
 
-#### 설명
-데이터를 이해하는 데 도움이 되는 시각화를 만들고 주요 결과를 요약하세요.
+#### Description
+Create visualizations to help understand the data and summarize key findings.
 
-#### 요구 사항
-완성된 프로그램은 다음 조건을 충족해야 합니다.
+#### Requirements
+Completed program should:
 
-- 서로 다른 유형의 그래프를 두 개 이상 생성합니다(예: 히스토그램, 산점도).
-- 데이터에서 두 가지 이상의 인사이트 또는 추세를 찾아 설명합니다.
-- 그래프를 이미지 파일로 저장합니다.
+- Generate at least two different types of plots (e.g., histogram, scatter plot)
+- Identify and describe at least two insights or trends from the data
+- Save the plots as image files
